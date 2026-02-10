@@ -5,209 +5,250 @@
 <title>Nuestro Tiempo Juntos</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Georgia', serif;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Georgia', serif;
+}
 
-    body {
-        background: linear-gradient(#fff3e8, #fde2e4);
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+body{
+    height:100vh;
+    background: linear-gradient(#fff6eb, #fde2e4);
+    overflow:hidden;
+    position:relative;
+}
 
-    #startBtn {
-        position: absolute;
-        background: #ff4d6d;
-        color: white;
-        border: none;
-        padding: 20px 40px;
-        font-size: 24px;
-        border-radius: 50px;
-        cursor: pointer;
-        animation: pulse 1.5s infinite;
-        z-index: 10;
-    }
+/* ❤️ BOTÓN CORAZÓN */
+#heartBtn{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%, -50%) rotate(45deg);
+    width:120px;
+    height:120px;
+    background:#ff4d6d;
+    cursor:pointer;
+    animation:pulse 1.5s infinite;
+    z-index:10;
+}
 
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
+#heartBtn::before,
+#heartBtn::after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    background:#ff4d6d;
+    border-radius:50%;
+}
 
-    .scene {
-        text-align: left;
-        width: 80%;
-        max-width: 900px;
-        opacity: 0;
-    }
+#heartBtn::before{ top:-60px; left:0; }
+#heartBtn::after{ left:-60px; top:0; }
 
-    .text {
-        color: #5a3e36;
-        font-size: 22px;
-        line-height: 1.6;
-    }
+#heartText{
+    position:absolute;
+    transform:rotate(-45deg);
+    width:200px;
+    text-align:center;
+    color:white;
+    font-size:16px;
+    top:45px;
+    left:-40px;
+    pointer-events:none;
+}
 
-    .tree {
-        position: absolute;
-        bottom: 0;
-        right: 10%;
-        width: 0;
-        height: 0;
-        background: #8b5a2b;
-        border-radius: 20px;
-        transition: all 3s ease;
-    }
+@keyframes pulse{
+    0%{transform:translate(-50%,-50%) rotate(45deg) scale(1);}
+    50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.08);}
+    100%{transform:translate(-50%,-50%) rotate(45deg) scale(1);}
+}
 
-    .tree.grow {
-        width: 30px;
-        height: 250px;
-    }
+/* 🧱 PISO */
+#ground{
+    position:absolute;
+    bottom:120px;
+    left:50%;
+    width:0;
+    height:4px;
+    background:#c9a27e;
+    transform:translateX(-50%);
+    opacity:0;
+}
 
-    .leaves {
-        position: absolute;
-        top: -150px;
-        left: -110px;
-        width: 250px;
-        height: 250px;
-        opacity: 0;
-        transition: opacity 2s ease 2s;
-    }
+/* 🌳 ÁRBOL */
+#tree{
+    position:absolute;
+    bottom:120px;
+    left:50%;
+    transform:translateX(-50%);
+    opacity:0;
+}
 
-    .tree.grow .leaves {
-        opacity: 1;
-    }
+#trunk{
+    width:30px;
+    height:0;
+    background:#8b5a2b;
+    margin:auto;
+    border-radius:20px;
+}
 
-    .heart {
-        position: absolute;
-        width: 14px;
-        height: 14px;
-        background: red;
-        transform: rotate(45deg);
-        animation: float 6s linear infinite;
-    }
+#crown{
+    position:absolute;
+    top:-160px;
+    left:-110px;
+    width:250px;
+    height:250px;
+    opacity:0;
+}
 
-    .heart::before,
-    .heart::after {
-        content: "";
-        position: absolute;
-        width: 14px;
-        height: 14px;
-        background: red;
-        border-radius: 50%;
-    }
+/* 💬 TEXTO */
+#textBox{
+    position:absolute;
+    left:10%;
+    top:30%;
+    width:35%;
+    color:#5a3e36;
+    font-size:22px;
+    line-height:1.6;
+    opacity:0;
+}
 
-    .heart::before {
-        top: -7px;
-        left: 0;
-    }
+/* 💘 CORAZONES */
+.floating-heart{
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:red;
+    transform:rotate(45deg);
+    animation:float 6s linear infinite;
+}
 
-    .heart::after {
-        left: -7px;
-        top: 0;
-    }
+.floating-heart::before,
+.floating-heart::after{
+    content:"";
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:red;
+    border-radius:50%;
+}
 
-    @keyframes float {
-        0% {
-            transform: translateY(0) rotate(45deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-600px) rotate(45deg);
-            opacity: 0;
-        }
-    }
+.floating-heart::before{ top:-7px; left:0; }
+.floating-heart::after{ left:-7px; top:0; }
 
-    .timer {
-        margin-top: 20px;
-        font-size: 26px;
-        color: #3b2c28;
-    }
+@keyframes float{
+    from{transform:translateY(0) rotate(45deg); opacity:1;}
+    to{transform:translateY(-600px) rotate(45deg); opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
-<button id="startBtn">❤️ Nuestro tiempo juntos</button>
-
-<div class="scene" id="scene">
-    <div class="text">
-        <p><strong>Para el amor de mi vida:</strong></p><br>
-        <p>
-            Si pudiera elegir un lugar seguro,<br>
-            sería a tu lado.
-        </p><br>
-        <p>
-            Cuanto más tiempo estoy contigo<br>
-            más te amo.
-        </p><br>
-        <p>— I Love You!</p>
-
-        <div class="timer" id="timer"></div>
-    </div>
+<!-- ❤️ BOTÓN -->
+<div id="heartBtn">
+    <div id="heartText">Nuestro tiempo juntos</div>
 </div>
 
-<div class="tree" id="tree">
-    <div class="leaves" id="leaves"></div>
+<!-- 🧱 PISO -->
+<div id="ground"></div>
+
+<!-- 🌳 ÁRBOL -->
+<div id="tree">
+    <div id="trunk"></div>
+    <div id="crown"></div>
+</div>
+
+<!-- 💬 TEXTO -->
+<div id="textBox">
+    <p><strong>Para Sonia el amor de mi vida:</strong></p><br>
+    <p>Si pudiera elegir un lugar seguro,<br>sería a tu lado.</p><br>
+    <p>Cuanto más tiempo estoy contigo,<br>más te amo.</p><br>
+    <p>— I Love You!</p>
+    <br>
+    <div id="timer"></div>
 </div>
 
 <script>
-    const startBtn = document.getElementById("startBtn");
-    const scene = document.getElementById("scene");
-    const tree = document.getElementById("tree");
-    const timer = document.getElementById("timer");
+const btn = document.getElementById("heartBtn");
+const ground = document.getElementById("ground");
+const tree = document.getElementById("tree");
+const trunk = document.getElementById("trunk");
+const crown = document.getElementById("crown");
+const text = document.getElementById("textBox");
+const timer = document.getElementById("timer");
 
-    const startDate = new Date("2024-02-25T00:00:00");
+const startDate = new Date("2010-09-25T00:00:00");
 
-    startBtn.addEventListener("click", () => {
-        startBtn.style.animation = "none";
-        startBtn.style.transition = "all 1.5s ease";
-        startBtn.style.transform = "translateY(800px)";
-        startBtn.style.opacity = 0;
+btn.onclick = () => {
+    btn.style.animation = "none";
+    btn.style.transition = "top 1.2s ease-in";
+    btn.style.top = "80%";
 
-        setTimeout(() => {
-            startBtn.remove();
-            scene.style.opacity = 1;
-            tree.classList.add("grow");
-            createHearts();
-            startTimer();
-        }, 1500);
-    });
+    setTimeout(() => {
+        ground.style.opacity = 1;
+        ground.style.transition = "width 1.2s ease";
+        ground.style.width = "60%";
+    }, 1200);
 
-    function createHearts() {
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.bottom = "0px";
-            heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-            document.body.appendChild(heart);
+    setTimeout(() => {
+        btn.remove();
+        tree.style.opacity = 1;
+        trunk.style.transition = "height 2s ease";
+        trunk.style.height = "240px";
+    }, 2500);
 
-            setTimeout(() => heart.remove(), 8000);
-        }, 300);
+    setTimeout(() => {
+        crown.style.opacity = 1;
+        generateCrown();
+    }, 4300);
+
+    setTimeout(() => {
+        tree.style.transition = "left 2s ease";
+        tree.style.left = "70%";
+    }, 6500);
+
+    setTimeout(() => {
+        text.style.transition = "opacity 2s ease";
+        text.style.opacity = 1;
+        hearts();
+        timerStart();
+    }, 8200);
+};
+
+function generateCrown(){
+    for(let i=0;i<120;i++){
+        const h=document.createElement("div");
+        h.className="floating-heart";
+        h.style.position="absolute";
+        h.style.left=Math.random()*250+"px";
+        h.style.top=Math.random()*250+"px";
+        crown.appendChild(h);
     }
+}
 
-    function startTimer() {
-        setInterval(() => {
-            const now = new Date();
-            const diff = now - startDate;
+function hearts(){
+    setInterval(()=>{
+        const h=document.createElement("div");
+        h.className="floating-heart";
+        h.style.left=Math.random()*window.innerWidth+"px";
+        h.style.bottom="0";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    },300);
+}
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-
-            timer.innerHTML = `
-                Mi amor por ti comenzó hace…<br>
-                ${days} días ${hours} horas ${minutes} minutos ${seconds} segundos
-            `;
-        }, 1000);
-    }
+function timerStart(){
+    setInterval(()=>{
+        const diff=new Date()-startDate;
+        const d=Math.floor(diff/86400000);
+        const h=Math.floor(diff/3600000)%24;
+        const m=Math.floor(diff/60000)%60;
+        const s=Math.floor(diff/1000)%60;
+        timer.innerHTML=`Mi amor por ti comenzó hace…<br>${d} días ${h} horas ${m} minutos ${s} segundos`;
+    },1000);
+}
 </script>
 
 </body>
