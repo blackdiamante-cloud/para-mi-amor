@@ -2,35 +2,36 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Nuestro Tiempo Juntos</title>
+<title>Nuestro Amor</title>
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Georgia', serif;
+    font-family: "Georgia", serif;
 }
 
 body{
+    width:100vw;
     height:100vh;
-    background: linear-gradient(#fff6eb, #fde2e4);
+    background:#fff5ec;
     overflow:hidden;
     position:relative;
 }
 
-/* ❤️ BOTÓN CORAZÓN */
+/* ❤️ CORAZÓN INICIAL */
 #heartBtn{
     position:absolute;
-    top:40%;
+    top:45%;
     left:50%;
-    transform:translate(-50%, -50%) rotate(45deg);
     width:120px;
     height:120px;
     background:#ff4d6d;
+    transform:translate(-50%,-50%) rotate(45deg);
     cursor:pointer;
-    animation:pulse 1.5s infinite;
-    z-index:10;
+    animation:beat 1.4s infinite;
+    z-index:5;
 }
 
 #heartBtn::before,
@@ -48,30 +49,30 @@ body{
 
 #heartText{
     position:absolute;
-    transform:rotate(-45deg);
     width:200px;
-    text-align:center;
-    color:white;
-    font-size:16px;
-    top:45px;
     left:-40px;
+    top:45px;
+    color:white;
+    text-align:center;
+    font-size:15px;
+    transform:rotate(-45deg);
     pointer-events:none;
 }
 
-@keyframes pulse{
+@keyframes beat{
     0%{transform:translate(-50%,-50%) rotate(45deg) scale(1);}
-    50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.08);}
+    50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.12);}
     100%{transform:translate(-50%,-50%) rotate(45deg) scale(1);}
 }
 
 /* 🧱 PISO */
 #ground{
     position:absolute;
-    bottom:120px;
+    bottom:130px;
     left:50%;
     width:0;
-    height:4px;
-    background:#c9a27e;
+    height:3px;
+    background:#c7a17a;
     transform:translateX(-50%);
     opacity:0;
 }
@@ -79,14 +80,14 @@ body{
 /* 🌳 ÁRBOL */
 #tree{
     position:absolute;
-    bottom:120px;
+    bottom:130px;
     left:50%;
     transform:translateX(-50%);
     opacity:0;
 }
 
 #trunk{
-    width:30px;
+    width:28px;
     height:0;
     background:#8b5a2b;
     margin:auto;
@@ -95,51 +96,56 @@ body{
 
 #crown{
     position:absolute;
-    top:-160px;
-    left:-110px;
-    width:250px;
-    height:250px;
+    top:-170px;
+    left:-120px;
+    width:260px;
+    height:260px;
     opacity:0;
+}
+
+/* 💘 CORAZONES */
+.heart{
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:#ff4d6d;
+    transform:rotate(45deg);
+    animation:float 6s linear infinite;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:#ff4d6d;
+    border-radius:50%;
+}
+
+.heart::before{ top:-7px; left:0; }
+.heart::after{ left:-7px; top:0; }
+
+@keyframes float{
+    from{transform:translateY(0) rotate(45deg); opacity:1;}
+    to{transform:translateY(-700px) rotate(45deg); opacity:0;}
 }
 
 /* 💬 TEXTO */
 #textBox{
     position:absolute;
-    left:10%;
-    top:30%;
-    width:35%;
+    left:8%;
+    top:28%;
+    width:38%;
     color:#5a3e36;
     font-size:22px;
     line-height:1.6;
     opacity:0;
 }
 
-/* 💘 CORAZONES */
-.floating-heart{
-    position:absolute;
-    width:14px;
-    height:14px;
-    background:red;
-    transform:rotate(45deg);
-    animation:float 6s linear infinite;
-}
-
-.floating-heart::before,
-.floating-heart::after{
-    content:"";
-    position:absolute;
-    width:14px;
-    height:14px;
-    background:red;
-    border-radius:50%;
-}
-
-.floating-heart::before{ top:-7px; left:0; }
-.floating-heart::after{ left:-7px; top:0; }
-
-@keyframes float{
-    from{transform:translateY(0) rotate(45deg); opacity:1;}
-    to{transform:translateY(-600px) rotate(45deg); opacity:0;}
+#timer{
+    margin-top:20px;
+    font-size:24px;
 }
 </style>
 </head>
@@ -162,76 +168,71 @@ body{
 
 <!-- 💬 TEXTO -->
 <div id="textBox">
-    <p><strong>Para Sonia el amor de mi vida:</strong></p><br>
+    <p><strong>Para el amor de mi vida:</strong></p><br>
     <p>Si pudiera elegir un lugar seguro,<br>sería a tu lado.</p><br>
     <p>Cuanto más tiempo estoy contigo,<br>más te amo.</p><br>
     <p>— I Love You!</p>
-    <br>
     <div id="timer"></div>
 </div>
 
 <script>
-const btn = document.getElementById("heartBtn");
-const ground = document.getElementById("ground");
-const tree = document.getElementById("tree");
-const trunk = document.getElementById("trunk");
-const crown = document.getElementById("crown");
-const text = document.getElementById("textBox");
-const timer = document.getElementById("timer");
+const btn=document.getElementById("heartBtn");
+const ground=document.getElementById("ground");
+const tree=document.getElementById("tree");
+const trunk=document.getElementById("trunk");
+const crown=document.getElementById("crown");
+const text=document.getElementById("textBox");
+const timer=document.getElementById("timer");
 
-const startDate = new Date("2010-09-25T00:00:00");
+/* 📅 FECHA EXACTA */
+const startDate=new Date("2010-10-31T00:00:00");
 
-btn.onclick = () => {
-    btn.style.animation = "none";
-    btn.style.transition = "top 1.2s ease-in";
-    btn.style.top = "80%";
+btn.onclick=()=>{
+    btn.style.animation="none";
+    btn.style.transition="top 1.2s ease-in";
+    btn.style.top="82%";
 
-    setTimeout(() => {
-        ground.style.opacity = 1;
-        ground.style.transition = "width 1.2s ease";
-        ground.style.width = "60%";
-    }, 1200);
+    setTimeout(()=>{
+        ground.style.opacity=1;
+        ground.style.transition="width 1.2s ease";
+        ground.style.width="65%";
+    },1200);
 
-    setTimeout(() => {
+    setTimeout(()=>{
         btn.remove();
-        tree.style.opacity = 1;
-        trunk.style.transition = "height 2s ease";
-        trunk.style.height = "240px";
-    }, 2500);
+        tree.style.opacity=1;
+        trunk.style.transition="height 2s ease";
+        trunk.style.height="250px";
+    },2600);
 
-    setTimeout(() => {
-        crown.style.opacity = 1;
-        generateCrown();
-    }, 4300);
+    setTimeout(()=>{
+        crown.style.opacity=1;
+        for(let i=0;i<140;i++){
+            const h=document.createElement("div");
+            h.className="heart";
+            h.style.left=Math.random()*260+"px";
+            h.style.top=Math.random()*260+"px";
+            crown.appendChild(h);
+        }
+    },4500);
 
-    setTimeout(() => {
-        tree.style.transition = "left 2s ease";
-        tree.style.left = "70%";
-    }, 6500);
+    setTimeout(()=>{
+        tree.style.transition="left 2s ease";
+        tree.style.left="72%";
+    },6800);
 
-    setTimeout(() => {
-        text.style.transition = "opacity 2s ease";
-        text.style.opacity = 1;
-        hearts();
-        timerStart();
-    }, 8200);
+    setTimeout(()=>{
+        text.style.transition="opacity 2s ease";
+        text.style.opacity=1;
+        floatingHearts();
+        startTimer();
+    },8600);
 };
 
-function generateCrown(){
-    for(let i=0;i<120;i++){
-        const h=document.createElement("div");
-        h.className="floating-heart";
-        h.style.position="absolute";
-        h.style.left=Math.random()*250+"px";
-        h.style.top=Math.random()*250+"px";
-        crown.appendChild(h);
-    }
-}
-
-function hearts(){
+function floatingHearts(){
     setInterval(()=>{
         const h=document.createElement("div");
-        h.className="floating-heart";
+        h.className="heart";
         h.style.left=Math.random()*window.innerWidth+"px";
         h.style.bottom="0";
         document.body.appendChild(h);
@@ -239,9 +240,10 @@ function hearts(){
     },300);
 }
 
-function timerStart(){
+function startTimer(){
     setInterval(()=>{
-        const diff=new Date()-startDate;
+        const now=new Date();
+        const diff=now-startDate;
         const d=Math.floor(diff/86400000);
         const h=Math.floor(diff/3600000)%24;
         const m=Math.floor(diff/60000)%60;
