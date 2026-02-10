@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Sonia el amor de mi vida</title>
+    <title>Para el amor de mi vida Sonia</title>
     <style>
         :root {
             --text-color: #5a3e2b;
@@ -12,98 +12,90 @@
         }
 
         body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background: var(--bg-color); font-family: 'Segoe UI', sans-serif;
             overflow: hidden;
         }
 
+        /* Contenedor Principal con animación de entrada */
         .container {
-            width: 90%;
-            max-width: 800px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 10;
+            display: flex; width: 90%; max-width: 800px;
+            align-items: center; justify-content: space-around;
+            animation: fadeIn 2s ease-in;
         }
 
-        /* Lado Izquierdo: Texto */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sección de Texto */
         .text-section {
-            flex: 1;
-            padding-right: 20px;
-            color: var(--text-color);
+            flex: 1; color: var(--text-color);
+            animation: slideIn 1.5s ease-out;
         }
 
-        .text-section p { font-size: 1.2rem; margin: 10px 0; line-height: 1.5; }
-        .greeting { font-size: 1.4rem !important; margin-bottom: 20px !important; }
-        .signature { font-weight: bold; margin-top: 20px !important; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-        /* Lado Derecho: Árbol */
+        .text-section p { font-size: 1.2rem; margin: 10px 0; }
+        .greeting { font-size: 1.5rem; font-weight: bold; }
+
+        /* Sección del Árbol */
         .tree-section {
-            flex: 1;
-            position: relative;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
+            flex: 1; position: relative; height: 350px;
+            display: flex; justify-content: center; align-items: flex-end;
         }
 
         .trunk {
-            width: 20px;
-            height: 100px;
-            background: #6d4c41;
-            border-radius: 5px;
-            position: relative;
+            width: 18px; height: 80px; background: #6d4c41;
+            border-radius: 4px; position: relative; z-index: 2;
         }
 
-        /* La copa del árbol hecha de corazones */
         .tree-crown {
-            position: absolute;
-            bottom: 90px;
-            width: 250px;
-            height: 250px;
+            position: absolute; bottom: 70px; width: 220px; height: 220px;
+            z-index: 3; animation: pulse 3s infinite ease-in-out;
         }
 
-        /* Cronómetro Inferior */
-        .timer-container {
-            position: absolute;
-            bottom: 10%;
-            left: 5%;
-            width: 90%;
-            border-top: 2px solid var(--text-color);
-            padding-top: 15px;
-            color: var(--text-color);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        #timer { font-size: 1.8rem; font-weight: bold; }
+        /* Contador */
+        .timer-section {
+            width: 90%; max-width: 800px; margin-top: 40px;
+            border-top: 2px solid #d2b48c; padding-top: 20px;
+            color: var(--text-color); text-align: left;
+        }
+
+        #timer { font-size: 1.6rem; font-weight: bold; margin-top: 5px; }
+
+        /* Corazones del árbol */
+        .tree-heart {
+            position: absolute; color: var(--heart-red);
+            cursor: default; user-select: none;
+        }
 
         /* Corazones flotantes del fondo */
         .floating-heart {
-            position: absolute;
-            color: var(--heart-red);
-            opacity: 0.6;
-            pointer-events: none;
-            animation: floatUp linear infinite;
+            position: absolute; color: var(--heart-red);
+            opacity: 0.5; pointer-events: none;
+            animation: flyUp linear infinite;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        @keyframes flyUp {
+            0% { transform: translateY(105vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* Responsive para celulares */
         @media (max-width: 600px) {
             .container { flex-direction: column; text-align: center; }
-            .text-section { padding-right: 0; }
-            .tree-section { height: 250px; margin-top: 20px; }
-            .tree-crown { width: 180px; height: 180px; bottom: 60px; }
-            #timer { font-size: 1.2rem; }
+            .tree-section { height: 200px; }
+            #timer { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -111,10 +103,10 @@
 
     <div class="container">
         <div class="text-section">
-            <p class="greeting">Sonia mi Amor:</p>
+            <p class="greeting">Para el amor de mi vida:</p>
             <p>Si pudiera elegir un lugar seguro, sería a tu lado.</p>
             <p>Cuanto más tiempo estoy contigo más te amo.</p>
-            <p class="signature">— I Love You!</p>
+            <p><strong>— I Love You!</strong></p>
         </div>
 
         <div class="tree-section">
@@ -123,16 +115,16 @@
         </div>
     </div>
 
-    <div class="timer-container">
+    <div class="timer-section">
         <p>Mi amor por ti comenzó hace...</p>
-        <div id="timer">000 días 00 horas 00 min 00 seg</div>
+        <div id="timer">Cargando...</div>
     </div>
 
     <script>
-        // 1. CONFIGURA TU FECHA AQUÍ
-        const startDate = new Date(2010, 9, 31, 0, 0, 0); // Año, Mes(0-11), Día...
+        // CONFIGURACIÓN DE FECHA
+        const startDate = new Date(2010, 9, 30, 0, 0, 0); 
 
-        // 2. Lógica del Contador
+        // Contador
         function updateTimer() {
             const now = new Date();
             const diff = now - startDate;
@@ -140,45 +132,48 @@
             const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const m = Math.floor((diff / 1000 / 60) % 60);
             const s = Math.floor((diff / 1000) % 60);
-            document.getElementById('timer').innerText = 
-                `${d} días ${h} horas ${m} minutos ${s} segundos`;
+            document.getElementById('timer').innerText = `${d} días ${h}h ${m}m ${s}s`;
         }
 
-        // 3. Generar el árbol de corazones
-        function buildTree() {
+        // Construir el árbol de corazones
+        function createTree() {
             const crown = document.getElementById('treeCrown');
-            for (let i = 0; i < 60; i++) {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️';
-                heart.style.position = 'absolute';
-                // Posicionamiento aleatorio dentro de un círculo para formar la copa
+            const heartIcons = ['❤️', '💖', '💗', '💓'];
+            for (let i = 0; i < 80; i++) {
+                const h = document.createElement('div');
+                h.className = 'tree-heart';
+                h.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                
+                // Distribución circular
                 const angle = Math.random() * Math.PI * 2;
-                const radius = Math.random() * 100;
-                heart.style.left = (125 + Math.cos(angle) * radius) + 'px';
-                heart.style.top = (125 + Math.sin(angle) * radius) + 'px';
-                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                heart.style.opacity = Math.random();
-                crown.appendChild(heart);
+                const radius = Math.random() * 90;
+                const x = 110 + Math.cos(angle) * radius;
+                const y = 110 + Math.sin(angle) * radius;
+                
+                h.style.left = x + 'px';
+                h.style.top = y + 'px';
+                h.style.fontSize = (Math.random() * 12 + 12) + 'px';
+                h.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+                h.style.opacity = Math.random() * 0.5 + 0.5;
+                crown.appendChild(h);
             }
         }
 
-        // 4. Lluvia de corazones al fondo
-        function spawnHeart() {
+        // Corazones de fondo
+        function spawnBackgroundHeart() {
             const h = document.createElement('div');
             h.className = 'floating-heart';
             h.innerHTML = '❤️';
             h.style.left = Math.random() * 100 + 'vw';
-            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 5) + 's';
             document.body.appendChild(h);
-            setTimeout(() => h.remove(), 6000);
+            setTimeout(() => h.remove(), 7000);
         }
 
-        // Iniciar todo
         setInterval(updateTimer, 1000);
-        setInterval(spawnHeart, 400);
-        buildTree();
+        setInterval(spawnBackgroundHeart, 450);
+        createTree();
         updateTimer();
     </script>
 </body>
