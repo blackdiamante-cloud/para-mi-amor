@@ -1,217 +1,214 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Gran Amor</title>
-    <style>
-        :root {
-            --brown: #4e342e;
-            --pink: #ff1744;
-            --bg: #fdf5e6;
+<meta charset="UTF-8">
+<title>Nuestro Tiempo Juntos</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Georgia', serif;
+    }
+
+    body {
+        background: linear-gradient(#fff3e8, #fde2e4);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #startBtn {
+        position: absolute;
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        padding: 20px 40px;
+        font-size: 24px;
+        border-radius: 50px;
+        cursor: pointer;
+        animation: pulse 1.5s infinite;
+        z-index: 10;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .scene {
+        text-align: left;
+        width: 80%;
+        max-width: 900px;
+        opacity: 0;
+    }
+
+    .text {
+        color: #5a3e36;
+        font-size: 22px;
+        line-height: 1.6;
+    }
+
+    .tree {
+        position: absolute;
+        bottom: 0;
+        right: 10%;
+        width: 0;
+        height: 0;
+        background: #8b5a2b;
+        border-radius: 20px;
+        transition: all 3s ease;
+    }
+
+    .tree.grow {
+        width: 30px;
+        height: 250px;
+    }
+
+    .leaves {
+        position: absolute;
+        top: -150px;
+        left: -110px;
+        width: 250px;
+        height: 250px;
+        opacity: 0;
+        transition: opacity 2s ease 2s;
+    }
+
+    .tree.grow .leaves {
+        opacity: 1;
+    }
+
+    .heart {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: red;
+        transform: rotate(45deg);
+        animation: float 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: red;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -7px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: -7px;
+        top: 0;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0) rotate(45deg);
+            opacity: 1;
         }
-
-        body {
-            margin: 0; height: 100vh; background: var(--bg);
-            font-family: 'Georgia', serif; display: flex;
-            justify-content: center; align-items: center; overflow: hidden;
+        100% {
+            transform: translateY(-600px) rotate(45deg);
+            opacity: 0;
         }
+    }
 
-        /* INICIO */
-        .intro-container {
-            display: flex; align-items: center; cursor: pointer; z-index: 100;
-            transition: opacity 0.8s;
-        }
-        #start-button { font-size: 80px; animation: pulse 1.5s infinite; }
-        .hint-text { margin-left: 20px; font-size: 1.5rem; color: var(--brown); font-weight: bold; }
-
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
-        /* CONTENEDOR DINÁMICO */
-        .container {
-            display: none; width: 95%; max-width: 1100px;
-            align-items: center; justify-content: center; /* Empieza al centro */
-            height: 85vh; transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .text-section {
-            flex: 0; opacity: 0; padding: 20px;
-            transition: all 1.5s ease; overflow: hidden;
-        }
-
-        /* ÁRBOL MAJESTUOSO */
-        .tree-section {
-            flex: 1; position: relative; height: 600px;
-            display: flex; justify-content: center; align-items: flex-end;
-        }
-
-        .trunk {
-            width: 25px; height: 0; background: var(--brown);
-            border-radius: 5px; position: relative; transition: height 2s ease;
-            z-index: 1; /* Debajo de los corazones */
-        }
-
-        /* Ramas afinadas en punta */
-        .branch {
-            position: absolute; background: var(--brown);
-            clip-path: polygon(0% 100%, 50% 0%, 100% 100%); /* Punta fina */
-            opacity: 0; transition: opacity 1s; z-index: 2;
-        }
-
-        .heart-crown {
-            position: absolute; bottom: 200px; width: 500px; height: 500px;
-            z-index: 10; opacity: 0; /* Encima de las ramas */
-        }
-
-        /* VIENTO HACIA LA IZQUIERDA */
-        .leaf {
-            position: absolute; color: var(--pink);
-            user-select: none; animation: windLeft 6s ease-out forwards;
-        }
-
-        @keyframes windLeft {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(500px) translateX(-450px) rotate(360deg); opacity: 0; }
-        }
-
-        .timer-footer {
-            position: absolute; bottom: 20px; width: 100%;
-            text-align: center; color: var(--brown); opacity: 0; transition: opacity 2s;
-        }
-
-        #timer { font-size: 2rem; font-weight: bold; }
-
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .tree-section { height: 350px; }
-        }
-    </style>
+    .timer {
+        margin-top: 20px;
+        font-size: 26px;
+        color: #3b2c28;
+    }
+</style>
 </head>
+
 <body>
 
-    <div class="intro-container" id="intro" onclick="iniciarMagia()">
-        <div id="start-button">❤️</div>
-        <div class="hint-text">Oprima aquí...</div>
+<button id="startBtn">❤️ Nuestro tiempo juntos</button>
+
+<div class="scene" id="scene">
+    <div class="text">
+        <p><strong>Para el amor de mi vida:</strong></p><br>
+        <p>
+            Si pudiera elegir un lugar seguro,<br>
+            sería a tu lado.
+        </p><br>
+        <p>
+            Cuanto más tiempo estoy contigo<br>
+            más te amo.
+        </p><br>
+        <p>— I Love You!</p>
+
+        <div class="timer" id="timer"></div>
     </div>
+</div>
 
-    <div class="container" id="mainContainer">
-        <div class="text-section" id="textSection">
-            <div id="typewriter" style="line-height: 1.8; font-size: 1.4rem;"></div>
-        </div>
+<div class="tree" id="tree">
+    <div class="leaves" id="leaves"></div>
+</div>
 
-        <div class="tree-section" id="treeSection">
-            <div class="trunk" id="trunk">
-                <div class="branch" style="width:12px; height:80px; bottom:120px; left:-30px; transform:rotate(-50deg);"></div>
-                <div class="branch" style="width:12px; height:70px; bottom:150px; right:-25px; transform:rotate(45deg);"></div>
-                <div class="branch" style="width:10px; height:60px; bottom:180px; left:-15px; transform:rotate(-30deg);"></div>
-                <div class="branch" style="width:10px; height:60px; bottom:200px; right:-15px; transform:rotate(30deg);"></div>
-                <div class="branch" style="width:15px; height:70px; bottom:140px; left:5px; transform:rotate(5deg);"></div>
-            </div>
-            <div id="heartShape" class="heart-crown"></div>
-        </div>
-    </div>
+<script>
+    const startBtn = document.getElementById("startBtn");
+    const scene = document.getElementById("scene");
+    const tree = document.getElementById("tree");
+    const timer = document.getElementById("timer");
 
-    <div class="timer-footer" id="timerFooter">
-        <p>Nuestro tiempo juntos:</p>
-        <div id="timer"></div>
-    </div>
+    const startDate = new Date("2024-02-25T00:00:00");
 
-    <script>
-        const startDate = new Date(2025, 0, 1, 0, 0, 0); // Ajusta tu fecha real aquí
-        const message = "Para el amor de mi vida:\nSi pudiera elegir un lugar seguro, sería a tu lado.\nCuanto más tiempo estoy contigo más te amo.\n\n— I Love You!";
+    startBtn.addEventListener("click", () => {
+        startBtn.style.animation = "none";
+        startBtn.style.transition = "all 1.5s ease";
+        startBtn.style.transform = "translateY(800px)";
+        startBtn.style.opacity = 0;
 
-        function iniciarMagia() {
-            document.getElementById('intro').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('intro').style.display = 'none';
-                const container = document.getElementById('mainContainer');
-                container.style.display = 'flex';
-                
-                // 1. Crece el tronco largo
-                const trunk = document.getElementById('trunk');
-                setTimeout(() => { 
-                    trunk.style.height = '280px'; 
-                    document.querySelectorAll('.branch').forEach(b => b.style.opacity = '1');
-                }, 200);
+        setTimeout(() => {
+            startBtn.remove();
+            scene.style.opacity = 1;
+            tree.classList.add("grow");
+            createHearts();
+            startTimer();
+        }, 1500);
+    });
 
-                // 2. Se forma la copa (Los corazones cubrirán las ramas)
-                setTimeout(buildDenseTree, 1800);
-            }, 800);
-        }
+    function createHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.bottom = "0px";
+            heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+            document.body.appendChild(heart);
 
-        function buildDenseTree() {
-            const crown = document.getElementById('heartShape');
-            crown.style.opacity = '1';
-            const numHearts = 500; // Súper frondoso
+            setTimeout(() => heart.remove(), 8000);
+        }, 300);
+    }
 
-            for (let i = 0; i < numHearts; i++) {
-                setTimeout(() => {
-                    const t = Math.random() * Math.PI * 2;
-                    const x = 16 * Math.pow(Math.sin(t), 3);
-                    const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-                    
-                    const heart = document.createElement('div');
-                    heart.innerHTML = i % 10 === 0 ? '💖' : '❤️';
-                    heart.style.position = 'absolute';
-                    const spread = Math.sqrt(Math.random()); 
-                    heart.style.left = (250 + x * 14 * spread) + 'px';
-                    heart.style.top = (250 + y * 14 * spread) + 'px';
-                    heart.style.fontSize = (Math.random() * 12 + 12) + 'px';
-                    heart.style.opacity = '0.9';
-                    heart.style.zIndex = '20'; // Asegura que cubran las ramas
-                    crown.appendChild(heart);
-                }, i * 3);
-            }
+    function startTimer() {
+        setInterval(() => {
+            const now = new Date();
+            const diff = now - startDate;
 
-            // 3. EFECTO: El árbol se mueve a la derecha y entra el texto
-            setTimeout(() => {
-                const container = document.getElementById('mainContainer');
-                const textSec = document.getElementById('textSection');
-                
-                textSec.style.flex = "1.2";
-                textSec.style.opacity = "1";
-                document.getElementById('timerFooter').style.opacity = "1";
-                
-                typeWriter();
-                setInterval(dropLeaf, 400); 
-                setInterval(updateTimer, 1000);
-            }, 3500);
-        }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
 
-        function typeWriter() {
-            let i = 0;
-            const target = document.getElementById("typewriter");
-            function typing() {
-                if (i < message.length) {
-                    target.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
-                    i++;
-                    setTimeout(typing, 50);
-                }
-            }
-            typing();
-        }
+            timer.innerHTML = `
+                Mi amor por ti comenzó hace…<br>
+                ${days} días ${hours} horas ${minutes} minutos ${seconds} segundos
+            `;
+        }, 1000);
+    }
+</script>
 
-        function dropLeaf() {
-            const crown = document.getElementById('heartShape');
-            const leaf = document.createElement('div');
-            leaf.className = 'leaf';
-            leaf.innerHTML = '❤️';
-            leaf.style.left = (Math.random() * 300 + 100) + 'px';
-            leaf.style.top = (Math.random() * 200 + 100) + 'px';
-            leaf.style.fontSize = (Math.random() * 10 + 12) + 'px';
-            crown.appendChild(leaf);
-            // La hoja dura 6 segundos antes de desaparecer (vuela más lejos)
-            setTimeout(() => leaf.remove(), 6000);
-        }
-
-        function updateTimer() {
-            const diff = new Date() - startDate;
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff / 3600000) % 24);
-            const m = Math.floor((diff / 60000) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-            document.getElementById('timer').innerText = `${d}d ${h}h ${m}m ${s}s`;
-        }
-    </script>
 </body>
 </html>
